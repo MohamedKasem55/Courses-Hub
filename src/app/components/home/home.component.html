@@ -1,0 +1,41 @@
+<div *ngIf="!currentUser || (currentUser && !currentUser.isAdmin)" > 
+<!-- if user -->
+<div class="container pt-5">
+  <input type="text " style="width: 35%;" [(ngModel)]="keyWordsSearch" placeholder="Search For Courses ... ">
+  <div class="row">
+    <div class="col-md-4 py-3" *ngFor="let course of courses | filter:keyWordsSearch">
+      <div class="card btn" style="width: 18rem;">
+        <div class="card-img text-primary" style="background-image: url({{course.image}}); min-height: 100px; width: auto;"></div>
+        <div class="card-body">
+          <h5 class="card-title pointer" [routerLink]="'/courses/'+ course.id">{{course.title}}</h5>
+           <div class="card-title pointer">Category : {{getCatByCourseId(course.id)}}</div>
+          <h6 class="card-subtitle mb-2 text-muted">{{course.university}}</h6>
+          <p class="card-text">{{course.description}}...</p>
+          <div class="d-flex justify-content-between">
+            <a class="btn btn-primary text-white card-link"
+              *ngIf="
+                      !currentUser || (currentUser && !checkAdmin() && !(( checkPendingCourse(course.id) || checkEnrolledCourse(course.id) )))"
+              (click)="enroll(course.id)">Enroll Now</a>
+
+            <a *ngIf="currentUser && checkEnrolledCourse(course.id)" [routerLink]="'/courses/'+ course.id"
+              class="text-success pointer mr-3">Go to course</a>
+            <a *ngIf="currentUser && checkPendingCourse(course.id)" class="text-warning mr-3">Pending</a>
+            <a class="card-link">{{course.price}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+ <div *ngIf="currentUser && currentUser.isAdmin" style=" text-align: center; margin-top: 100px;" >
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+    <div [routerLink]="['/category/']" routerLinkActive="router-link-active"  class="btn bg-warning rounded-circle" style="width: 300px; height: 300px;padding-top: 80px; font-size: 40px; " >Available Categories :{{categories.length}}</div>
+    <div [routerLink]="['/courses/']"class="btn bg-danger rounded-circle" style=" width: 300px; height: 300px;padding-top: 80px;font-size: 40px; ">Available Courses :{{courses.length}}</div>
+    <div [routerLink]="['/students/']"class="btn bg-primary rounded-circle" style=" width: 300px; height: 300px;padding-top: 80px;font-size: 40px; " >Available Students :{{students.length}}</div>
+  </div>
+    
+    
+</div>

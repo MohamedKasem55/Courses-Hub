@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="d-flex justify-content-around  mt-5 ">
+        <!-- <form [formGroup]="categoryForm"  (ngSubmit)="addCategory()">
+
+<input type="text" [(ngModel)]="selectedName" placeholder="add a new category" formControlName="categoryName">
+<input type="submit" class="btn btn-primary" [value]="editable" [disabled]="categoryForm.invalid">
+<input type="button" class="btn btn-warning" value="Reset" (click)='reset()'>
+
+
+        </form> -->
+
+        <form [formGroup]="categoryForm" style="width: 40%;" class=" px-4" (ngSubmit)="addCategory()">
+          <div class="form-group row mx-0">
+            <div class="col-12">
+              <input type="text" class="form-control" [(ngModel)]="selectedName" placeholder="add a new category" formControlName="categoryName">
+            </div>
+          </div>
+
+          <div class="form-group row mx-0">
+            <div class="col-sm-10">
+              <input type="submit" [value]="editable" [disabled]="categoryForm.invalid" class="btn btn-primary">
+              <button type="button" class="btn btn-warning ml-3 text-white" value="Reset" (click)='reset()'>Reset</button>
+            </div>
+          </div>
+        </form>
+
+
+
+        <div style="width: 50%;"  >
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Category Name</th>
+                    <th scope="col">Edit Category</th>
+                    <th scope="col">Delete Category</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-active" *ngFor="let item of allCategories" >
+                    <th scope="row">{{item.data.categoryName}}</th>
+                    <td><button type="button" (click)="editCategory(item.id)" class="btn btn-success">Edit</button>  </td>
+                    <td><button type="button"  (click)="deleteDisplay(item.id)" class="btn btn-danger">Delete</button>  </td>
+                  </tr>
+                  </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<ng-template #delete let-modal>
+  <div>
+      <div class="modal-body">
+          <div class="applyBody">
+              <div style="font-size: 25px; color: grey;">Are You Sure You Want to Delete ?</div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="deleteCategory();modal.close('Close click')">
+              YES
+          </button>
+          <button type="button" class="btn btn-outline-dark" (click)="noDeleteCategory();modal.close('Close click')">
+              NO
+          </button>
+      </div>
+  </div>
+</ng-template>

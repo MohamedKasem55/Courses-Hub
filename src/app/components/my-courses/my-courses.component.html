@@ -1,0 +1,16 @@
+<div class="container mt-5">
+    <table *ngIf="enrolledCourses.length > 0" class="table">
+  <tbody>
+    <tr *ngFor="let c of enrolledCourses; let i = index">
+      <th scope="row">{{i +1}}</th>
+      <td>{{getCourse(c).title}}</td>
+      <td class="text-right">
+        <a [routerLink]="['/courses/',c]"
+        routerLinkActive="router-link-active" class="btn btn-primary">
+          Continue course
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

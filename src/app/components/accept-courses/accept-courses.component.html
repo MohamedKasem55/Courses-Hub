@@ -1,0 +1,15 @@
+<div class="container pt-5">
+  <div *ngIf="!pendingCourses">No Pending Courses...</div>
+  <div *ngFor="let item of pendingCourses" class="w-100 border rounded p-3 mb-3">
+    <header class="border-bottom pb-2 font-weight-bold">{{item.email}}</header>
+    <div>
+      <div *ngFor="let c of item.pendingCourses" class="course-pending border-bottom p-3 row mx-0">
+          <div class="col">{{getCourse(c)?.title}} - {{getCourse(c)?.price}}</div>
+          <div class="col-md-4 text-right">
+            <a class="text-success pointer ml-3" (click)="acceptCourse(item.userId, getCourse(c)?.id)">Accept</a>
+            <a class="text-danger pointer ml-3" (click)="rejectCourse(item.userId, getCourse(c)?.id)">Reject</a>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

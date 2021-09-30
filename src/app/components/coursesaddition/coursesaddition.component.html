@@ -1,0 +1,80 @@
+
+    <div  style=" background-color: rgb(230, 230, 230);"  >
+        <h1 *ngIf="editCourse.id" style="text-align: center;">Course Name: {{editCourse.data.title}}</h1>
+        <h1 *ngIf="!editCourse.id" style="text-align: center;">New Course Form</h1>
+        <form [formGroup]="courseForm" (ngSubmit)="addCourse()" style=" margin-right:20%;margin-left:20%; background-color: white; border: solid grey 1px; box-shadow: 1px 1px 10px 1px rgb(141, 138, 138); 
+        ; border-radius: 25px; margin-top: 50px;"  >
+
+        <div  >
+
+            <div class="d-flex flex-row justify-content-around">
+
+<!--                 <input  type="hidden" formControlName="$key">
+ -->            
+            <div class=" form-group" style="width: 45%;">
+                <label class="text-muted"> title </label>
+                <input  formControlName="title" required style="width: 100%; "
+                class="form-control">
+            </div>
+
+
+            <div class=" form-group" style="width: 45%;">
+                <label class="text-muted"> University </label>
+                <input style="width: 100%; " formControlName="university" class="form-control">
+            </div>
+
+         </div>
+
+<div class="justify-content-around d-flex flex-row "> 
+            <div class=" form-group" style="width: 45%;">
+                
+                <label class="text-muted" for="">select category:</label>
+                <select style="width: 100%; "  formControlName="category" class="form-select" aria-label="Default select example">
+                    <option *ngFor="let item of allCategories" [value]="item.id" >{{item.data.categoryName}}</option>
+                </select>
+            </div>   
+
+            <div class="  form-group" style="width: 45%;">
+                <label class="text-muted" > course Price </label>
+                <input style="width: 100%; " formControlName="price" class="form-control">
+            </div>
+        
+            </div>
+
+            <div class="form-group" >
+                <label class="text-muted"> description </label>
+                <textarea  formControlName="description" style="height: 100px;" class="form-control"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="text-muted"> requirements </label>
+                <textarea formControlName="requirements" style="height: 100px;" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="text-muted" > Insert Image <small id='reqimg' style="color: red; display: none;" >required</small> </label>
+                <br>
+                <button type="button" [disabled]="courseForm.invalid" class="btn btn-outline-dark" (click)="fileCoverInput.click()">
+                    <span><i class="fas fa-edit"></i></span>
+                    <input #fileCoverInput  id="img" type="file" style="display:none;" accept=".png,.jpg"
+                    (change)="preview(fileCoverInput.files)" />
+                </button>
+                <div style="width: 200px; height: auto;" >
+                    
+                    <img style="width: 100%;" [src]="previewedImg" alt="">
+                </div>
+                <!-- <button type="submit" class="btn btn-outline-dark"
+                    (click)="upload('avatarCover')">Save</button> -->
+                </div>
+
+                <div class="d-flex flex-row justify-content-around">                     
+                    <input type="submit" [disabled]="imageNotChanged " style="width: 24%;" [value]="editable"
+                    class="btn btn-success">
+                    <input type="button"  class="btn btn-warning " style="width: 24%;" value="Reset" (click)='reset()' >
+                    <input type="button" *ngIf="editCourse.id" class="btn btn-info " style="width: 24%;" value="New Course Form" [routerLink]="['/courses/add/']"  >
+                    <input type="button"  class="btn btn-dark " style="width: 24%;" value="All Courses" [routerLink]="['/courses/']"   >
+
+                </div>
+                
+            </div>
+            </form>
+        </div> 

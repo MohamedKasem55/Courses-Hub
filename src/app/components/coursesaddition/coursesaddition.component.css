@@ -1,0 +1,27 @@
+input{
+    border:solid grey 0.5px;
+/*     width:50%;
+ */
+ 
+}
+.form-group{
+    padding:0px;
+    margin: 2%;
+}
+input.ng-touched.ng-invalid{
+    border-color: #dc3545;
+}
+.upperinput{
+    width:100%;
+}
+div.validation-error{
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+/* for table row hover - in employee-list component */
+table.table-hover tbody tr:hover{
+    cursor: pointer;
+}

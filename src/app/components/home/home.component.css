@@ -1,0 +1,28 @@
+.card .card-img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.card-text
+{
+  height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-body
+{
+  min-height: 255px;
+}
+.card{
+  border: solid grey 2px ;
+  border-radius: 30px;
+  height:500px
+}
+.card-img{
+  border-radius: 30px;
+  
+}
+.card:hover{
+  box-shadow: 1px 1px 10px rgba(128, 128, 128, 0.452);
+
+}

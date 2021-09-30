@@ -1,0 +1,97 @@
+
+<div class="container pt-5">
+  <div class="d-flex justify-content-between">
+    <h3>Courses List</h3>
+    <button *ngIf="!(user$ | async)" routerLink="/courses/add" type="button" class="btn btn-primary ml-3 text-white" >Add Course</button>
+  </div>
+  <div  style="border-radius: 25px;">
+
+
+    <div class="tableh  " >
+        <div class="celltwo">Course Name</div>
+        <div class="celltwo">University</div>
+        <div class="cellone">Price</div>
+        <div *ngIf="(user$ | async) && (user$ | async).isAdmin" class="cellone">Lectures</div>
+        <div class="cellone">Details</div>
+        <div *ngIf="(user$ | async) && (user$ | async).isAdmin" class="cellone">Edit</div>
+        <div *ngIf="(user$ | async) && (user$ | async).isAdmin" class="cellone">Delete</div>
+
+    </div>
+    <div *ngFor="let item of coursesList"  >
+        <div class="tableb  " >
+            <div class="celltwo" style="font-weight: bold;">{{item.data.title}}</div>
+            <div class="celltwo">{{item.data.university}}</div>
+            <div class="cellone">{{item.data.price}}</div>
+            <div *ngIf="(user$ | async) && (user$ | async).isAdmin" class="cellone"><a  [routerLink]="['/lectures/',item.id]" class="btn btn-warning" > Lectures </a> </div>
+            <div class="cellone" *ngIf="(user$ | async) && (user$ | async).isAdmin"><button type="button" [routerLink]="['/course/edit/', item.id]" (click)="editCourse(item.id)" class="btn btn-success">Edit</button></div>
+            <div class="cellone" *ngIf="(user$ | async) && (user$ | async).isAdmin"><button type="button"  (click)="deleteDisplay(item.id)" class="btn btn-danger">Delete</button> </div>
+            <div class="cellone"><button type="button" (click)="details(item.id)" class="btn btn-info">Details</button></div>
+
+        </div>
+        <div [id]="item.id" style="display: none; background-color: rgb(223, 245, 252) ; justify-content: space-around; flex-direction: row;" >
+
+            <div style="width: 65%;" >
+              <div class="card-title pointer">Category : {{getCatByCourseId(item.id)}}</div>
+                <h6>Description:</h6>
+            <p>{{item.data.description}}</p>
+            <h6>Requirements: </h6>
+            <p>{{item.data.requirements}}</p>
+<!--             <h6>Requirements: </h6>
+            <p>{{item.data}}</p> -->
+           
+            </div>
+            <img [src]="item.data.image" style="align-self:flex-start; width: 25%;
+            height: auto;
+            object-fit: contain;" alt="">
+        </div>
+    </div>
+</div>
+</div>
+<!--
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Course Name</th>
+         <th scope="col">Course Description</th>
+        <th scope="col">Course Requirements</th>
+        <th scope="col">Course University</th>
+        <th scope="col">Course Price</th>
+
+        <th scope="col">Details</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-active" *ngFor="let item of coursesList" >
+        <th scope="row">{{item.data.title}}</th>
+         <td> {{item.data.description}} </td>
+        <td> {{item.data.requirements}} </td>
+        <td> {{item.data.univesity}} </td>
+        <td> {{item.data.price}} </td>
+        <td><button type="button" (click)="details(item.id)" class="btn btn-info">Details</button>  </td>
+        <td><button type="button" (click)="editCourse(item.id)" class="btn btn-success">Edit</button>  </td>
+        <td><button type="button"  (click)="deleteCourse(item.id)" class="btn btn-danger">Delete</button>  </td>
+
+      </tr>
+      </tbody>
+</table> -->
+<ng-template #delete let-modal>
+  <div>
+      <div class="modal-body">
+          <div class="applyBody">
+              <div style="font-size: 25px; color: grey;">Are You Sure You Want to Delete ?</div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="deleteCourse();modal.close('Close click')">
+              YES
+          </button>
+          <button type="button" class="btn btn-outline-dark" (click)="noDeleteCourse();modal.close('Close click')">
+              NO
+          </button>
+      </div>
+  </div>
+</ng-template>

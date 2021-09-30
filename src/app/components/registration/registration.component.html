@@ -1,0 +1,16 @@
+<div class="w-100 h-100 bg-light d-flex justify-content-center align-items-center">
+    <main class="form-registration">
+      <form class="form-registration" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <h1 class="h3 mb-3 font-weight-normal">Register a New Account</h1>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input formControlName="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input formControlName="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <label for="" class="sr-only">User Name</label>
+        <input formControlName="displayName" type="text" id="inputName" class="form-control" placeholder="Password" required="">
+  
+        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.valid || submitted">Sign in <i *ngIf="submitted" class="fa fa-spinner fa-spin"></i></button>
+      </form>
+      </main>
+  </div>
+  

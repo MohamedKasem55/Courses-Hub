@@ -1,0 +1,79 @@
+<div class="container">
+     <h1 style="text-align: center;" >{{course.data.title}}</h1>
+     <div class="d-flex justify-content-around   ">
+
+        <form style="width: 25%;" [formGroup]="lectureForm"  (ngSubmit)="addForm()">
+
+            <div class=" form-group" >
+                <label class="text-muted"> Lecture Name </label>
+                <input  formControlName="title" placeholder="add a Name" formControlName="lectureName"  style="width: 100%; "
+                class="form-control">
+            </div>    
+
+            <div class=" form-group" >
+                <label class="text-muted"> Objectives </label>
+                <textarea  formControlName="title" placeholder="add Objectives" formControlName="objectives"  style="width: 100%; "
+                class="form-control"> </textarea>
+            </div>     
+
+            <div class=" form-group" >
+                <label class="text-muted"> Outcome </label>
+                <textarea  formControlName="title" placeholder="add Outcome" formControlName="outcome"  style="width: 100%; "
+                class="form-control"> </textarea>
+            </div>       
+
+            <div class="form-group">
+                <label class="text-muted"> Lecture Video </label>
+                <br>
+                <button type="button" [disabled]="lectureForm.invalid" class="btn btn-outline-dark" (click)="fileCoverInput.click()">
+                    <span><i class="fas fa-edit"></i></span>
+                     <input #fileCoverInput id="vid" type="file" style="display:none;" 
+                    (change)="preview(fileCoverInput.files)" /> 
+                </button>
+                </div>
+
+                    <video style="width: 100%;" *ngIf="previewedVid" [src]="previewedVid" controls></video>
+        
+            <input type="submit" class="btn btn-primary" [value]="editable" [disabled]="!videoUploaded">
+            <input type="button" class="btn btn-warning" value="Reset" (click)='reset()' >
+
+
+        </form>
+        <div style="width: 65%;">
+                <div class="tableh  " > 
+                    <div class="celltwo" >Lecture Name</div>  
+                    <div class="cellone">Details</div>
+                    <div class="cellone">Edit</div>
+                    <div class="cellone">Delete</div>
+                </div>
+                <div *ngFor="let item of courseLectures"  >
+                    <div class="tableb  " > 
+                        <div class="celltwo" style="font-weight: bold;">{{item.data.lectureName}}</div>
+                        <div class="cellone"><button type="button" (click)="details(item.id)" class="btn btn-info">Details</button></div>
+                        <div class="cellone"><button type="button" (click)="editLecture(item.id)" class="btn btn-success">Edit</button></div>
+                        <div class="cellone"><button type="button"  (click)="deleteLecture(item.id)" class="btn btn-danger">Delete</button> </div>
+                        
+                    </div>
+                    <div [id]="item.id" style="display: none; background-color: rgb(223, 245, 252) ; justify-content: space-around; flex-direction: row;" > 
+                        
+                        <div style="width: 65%;" >
+                            <h6>Objectives:</h6>
+                        <p>{{item.data.objectives}}</p>
+                        <h6>Outcome: </h6>
+                        <p>{{item.data.outcome}}</p>
+                        </div  >
+<!--                         <iframe [src]="item.data.video" style="align-self:flex-start; width: 25%;
+                        height: auto;
+                        object-fit: contain;" alt=""> </iframe> -->
+                        <video  style="width: 35%; height: auto;" *ngIf="item.data.video!=''" [src]="item.data.video" controls>
+                            
+
+                          </video>
+                    </div>
+                </div>
+            </div> 
+        
+        
+    </div>
+</div>
+<div id="spinner" style="display: none;" > helllllllllllllllo </div>

@@ -1,0 +1,61 @@
+<div *ngIf="id && (course$ |async)" class="container pt-5">
+  <div class="row mb-5">
+    <div class="col-md-4">
+      <img class="img-fluid" [src]="(course$ |async)?.image" alt="" srcset="">
+    </div>
+    <div class="col-md-8">
+      <div>
+        <h3>{{(course$ |async)?.title}}</h3>
+        <h6 class="text-secondry"><small>{{(course$ |async)?.university}}</small></h6>
+        <div class="mb-3">
+          <label class="font-weight-bold">Description :</label>
+          <div>{{(course$ |async)?.description}}</div>
+        </div>
+        <div class="mb-3">
+          <label class="font-weight-bold">Requirements :</label>
+          <div>{{(course$ |async)?.requirements}}</div>
+        </div>
+        <div class="mb-3">
+          <a *ngIf="(course$ |async)?.link" href="{{(course$ |async)?.link}}">Go to direct link</a>
+        </div>
+        <div class="mb-3" >
+          <ngb-rating *ngIf="!currentUserRate &&checkEnrolledCourse(id) " (rateChange)="updateLocalRate($event)" [(rate)]="currentRate" #rateStars (click)="rate(rateStars.rate)"></ngb-rating>
+          <div *ngIf=" globalRate" >Course rate: {{globalRate}} stars</div>
+          <div *ngIf="currentUserRate && checkEnrolledCourse(id)">Your rate was: {{currentUserRate.rate}} stars</div>
+          <!-- <input type="hidden" name="rate" #rateInput (click)="rate(rate)"> -->
+        </div>
+        <div class="d-flex justify-content-between">
+          <a class="btn btn-primary text-white card-link"
+              *ngIf="
+                      !currentUser || (currentUser && !checkAdmin() && !(( checkPendingCourse(id) || checkEnrolledCourse(id) )))"
+              (click)="enroll(id)">Enroll Now</a>
+
+          <a *ngIf="currentUser && checkPendingCourse(id)" class="text-warning mr-3">Pending</a>
+          <a class="card-link">Course Price : {{(course$ |async)?.price}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pb-5">
+
+    <div *ngIf="lectures" class="col-md-8">
+
+      <accordion [isAnimated]="true">
+        <accordion-group *ngFor="let lec of lectures; let i = index" heading="{{lec.lectureName}}">
+          <div class="mb-3">
+            <label class="font-weight-bold">Objective :</label>
+            <div>{{lec.objectives}}</div>
+          </div>
+          <div class="mb-3">
+            <label class="font-weight-bold">Outcome :</label>
+            <div>{{lec.outcome}}</div>
+          </div>
+          <div *ngIf="lec.video && isEnrolled() " class="mb-3">
+            <video controls style="width: 100%;" src="{{lec.video}}"></video>
+            <a class="mt-3 d-block" href="{{lec.video}}"><small>Open video externally</small></a>
+          </div>
+        </accordion-group>
+      </accordion>
+  </div>
+
+</div>
